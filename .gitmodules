@@ -1,0 +1,9 @@
+[submodule "core"]
+	path = core
+	url = https://github.com/xmonad/xmonad.git
+[submodule "contrib"]
+	path = contrib
+	url = https://github.com/xmonad/xmonad-contrib.git
+[submodule "xmobar"]
+	path = xmobar
+	url = https://github.com/jaor/xmobar.git
