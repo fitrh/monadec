@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+CONF_DIR="${XGD_CONFIG_HOME:-$HOME/.config}"
+BIN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
+DISPLAY=":0"
+SXHKD_CONF="$CONF_DIR/sxhkd"
+PICOM_CONF="$CONF_DIR/picom/xmonad.picom.conf"
+COMMON_SXHKD="$SXHKD_CONF/common.sxhkdrc"
+XMONAD_SXHKD="$SXHKD_CONF/wm/xmonad.sxhkdrc"
+DUNST_SXHKD="$SXHKD_CONF/util/dunst.sxhkdrc"
+PICOM_SXHKD="$SXHKD_CONF/util/picom.sxhkdrc"
+
+export PICOM_CONF
+
+set_backlight_gamma() {
+    local BACKLIGHT GAMMA
+    local STATE="${XDG_STATE_HOME:-$HOME/.local/state}/clightctl"
+    BACKLIGHT="$(<"${STATE}/backlight")"
+    GAMMA="$(<"${STATE}/gamma")"
+
+    clightctl backlight set "$BACKLIGHT"
+    clightctl gamma set "$GAMMA"
+}
+
+set_backlight_gamma
+
+BG="Earth & The Satellite.png"
+setbg "${DESKTOP_BG:-$BG}"
+exec dunst &
+exec sxhkd -c "$XMONAD_SXHKD" "$DUNST_SXHKD" "$PICOM_SXHKD" "$COMMON_SXHKD" &
+exec picom --config "$PICOM_CONF" &
+exec unclutter --timeout 3 \
+    --ignore-scrolling \
+    --hide-on-touch \
+    --start-hidden &
+xsetroot -cursor_name left_ptr
+
+exec "$BIN_DIR/xmonad-x86_64-linux"
