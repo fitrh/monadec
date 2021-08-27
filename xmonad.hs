@@ -122,8 +122,8 @@ myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
     , ((modm .|. shiftMask, xK_k), windows W.swapUp)
 
     -- Cycle between visibel workspaces
-    , ((altKey .|. shiftKey, xK_bracketright), moveTo Next NonEmptyWS)
-    , ((altKey .|. shiftKey, xK_bracketleft), moveTo Prev NonEmptyWS)
+    , ((altKey .|. shiftKey, xK_bracketright), moveTo Next (Not emptyWS))
+    , ((altKey .|. shiftKey, xK_bracketleft), moveTo Prev (Not emptyWS))
     -- Move focused window between workspaces
     , ((modm .|. shiftKey, xK_bracketright), shiftToNext >> nextWS)
     , ((modm .|. shiftKey, xK_bracketleft ), shiftToPrev >> prevWS)
@@ -189,8 +189,8 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
         >> windows W.shiftMaster)
 
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    , ((modm, button4), \w -> moveTo Next NonEmptyWS)
-    , ((modm, button5), \w -> moveTo Prev NonEmptyWS)
+    , ((modm, button4), \w -> moveTo Next (Not emptyWS))
+    , ((modm, button5), \w -> moveTo Prev (Not emptyWS))
     , ((modm .|. shiftKey, button4), \w -> focus w
         >> shiftToNext >> nextWS)
     , ((modm .|. shiftKey, button5), \w -> focus w
