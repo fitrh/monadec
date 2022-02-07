@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 CONF_DIR="${XGD_CONFIG_HOME:-$HOME/.config}"
-BIN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/xmonad"
+BIN_DIR="${XMONAD_CACHE_DIR:-$HOME/.cache/xmonad}"
 DISPLAY=":0"
 SXHKD_CONF="$CONF_DIR/sxhkd"
 PICOM_CONF="$CONF_DIR/picom/xmonad.picom.conf"
